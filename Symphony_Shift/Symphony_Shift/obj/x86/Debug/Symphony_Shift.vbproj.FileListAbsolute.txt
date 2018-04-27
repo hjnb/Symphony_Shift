@@ -1,0 +1,11 @@
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\bin\Debug\Symphony_Shift.exe
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\bin\Debug\Symphony_Shift.pdb
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\bin\Debug\Symphony_Shift.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\obj\x86\Debug\Symphony_Shift.Resources.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\obj\x86\Debug\Symphony_Shift.vbproj.GenerateResource.Cache
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\obj\x86\Debug\Symphony_Shift.exe
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\obj\x86\Debug\Symphony_Shift.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\Symphony_Shift\obj\x86\Debug\Symphony_Shift.pdb
+C:\Users\yoshi\documents\visual studio 2010\Projects\Symphony_Shift\Symphony_Shift\obj\x86\Debug\Symphony_Shift.exe
+C:\Users\yoshi\documents\visual studio 2010\Projects\Symphony_Shift\Symphony_Shift\obj\x86\Debug\Symphony_Shift.xml
+C:\Users\yoshi\documents\visual studio 2010\Projects\Symphony_Shift\Symphony_Shift\obj\x86\Debug\Symphony_Shift.pdb
