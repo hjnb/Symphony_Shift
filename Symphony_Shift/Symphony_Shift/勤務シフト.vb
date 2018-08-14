@@ -1,17 +1,19 @@
 ﻿Imports System.Data.OleDb
 Imports System.Runtime.InteropServices
 Public Class 勤務シフト
+    Private whiteCellStyle As DataGridViewCellStyle
     Private clearCellStyle As DataGridViewCellStyle
     Private SatCellStyle As DataGridViewCellStyle
     Private SunCellStyle As DataGridViewCellStyle
-    Private DGV1Table As New DataTable
+    Private DGV1Table As DataTable
 
     Private Sub MadeStyle()
         '各曜日のセルスタイル設定
+        whiteCellStyle = New DataGridViewCellStyle()
         clearCellStyle = New DataGridViewCellStyle()
         SatCellStyle = New DataGridViewCellStyle()
         SunCellStyle = New DataGridViewCellStyle()
-
+        whiteCellStyle.BackColor = Color.FromArgb(255, 255, 255)
         clearCellStyle.BackColor = Color.FromArgb(234, 234, 234)
         SatCellStyle.BackColor = Color.FromArgb(200, 200, 255)
         SunCellStyle.BackColor = Color.FromArgb(255, 200, 200)
@@ -20,6 +22,8 @@ Public Class 勤務シフト
     Private Sub 勤務シフト_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'セルスタイルの実行
         MadeStyle()
+
+        Me.WindowState = FormWindowState.Maximized
 
         Dim Cn As New OleDbConnection(frmTopform.DB_Shift)
         Dim SQLCm As OleDbCommand = Cn.CreateCommand
@@ -65,7 +69,9 @@ Public Class 勤務シフト
         'データグリッドビューのコンボボックスの中身を作成
         Dim Nurse As New List(Of String)
         For i As Integer = 0 To DataGridView2.Rows.Count - 1
-            Nurse.Add(DataGridView2(0, i).Value)
+            If DataGridView2(2, i).Value = 1 Then
+                Nurse.Add(DataGridView2(0, i).Value)
+            End If
         Next
         'データグリッドビューのコンボボックスに看護師名を挿入
         For cmbbox As Integer = 3 To 12
@@ -110,7 +116,6 @@ Public Class 勤務シフト
         YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
         lblNamae.Text = ""
 
-
     End Sub
 
     Private Sub DataGridView1_CellMouseClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
@@ -119,26 +124,48 @@ Public Class 勤務シフト
         If cell.ColumnIndex = 0 AndAlso cell.RowIndex > 2 Then
             lblNamae.Text = Strings.Left(Util.checkDBNullValue(cell.Value), 1)
         Else
-            If cell.RowIndex = 2 AndAlso lblNamae.Text <> "" Then
+            If cell.ColumnIndex <> 0 AndAlso cell.RowIndex = 2 AndAlso lblNamae.Text <> "" Then
                 cell.Value = lblNamae.Text
+            End If
+        End If
+
+        Dim dgv As DataGridView = CType(sender, DataGridView)
+        If TypeOf dgv(e.ColumnIndex, e.RowIndex) Is DataGridViewComboBoxCell Then
+            'フォーム上の座標でマウスポインタの位置を取得する
+            '画面座標でマウスポインタの位置を取得する
+            Dim sp As System.Drawing.Point = System.Windows.Forms.Cursor.Position
+            '画面座標をクライアント座標に変換する
+            Dim cp As System.Drawing.Point = Me.PointToClient(sp)
+            'X座標を取得する
+            Dim x As Integer = cp.X
+
+
+            If x > 120 Then
+                'コンボボックスリスト開く
+                Dim cb As DataGridViewComboBoxCell = CType(dgv(e.ColumnIndex, e.RowIndex), DataGridViewComboBoxCell)
+                If cb.IsInEditMode = False Then
+                    SendKeys.Send("{F4}")
+                End If
+            Else
+                SendKeys.Send("{F2}")
             End If
         End If
     End Sub
 
-    'Private Sub DataGridView1_CellPainting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
-    '    '選択したセルに枠を付ける
-    '    If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 AndAlso (e.PaintParts And DataGridViewPaintParts.Background) = DataGridViewPaintParts.Background Then
-    '        e.Graphics.FillRectangle(New SolidBrush(e.CellStyle.BackColor), e.CellBounds)
+    Private Sub DataGridView1_CellPainting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
+        '選択したセルに枠を付ける
+        If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 AndAlso (e.PaintParts And DataGridViewPaintParts.Background) = DataGridViewPaintParts.Background Then
+            e.Graphics.FillRectangle(New SolidBrush(e.CellStyle.BackColor), e.CellBounds)
 
-    '        If (e.PaintParts And DataGridViewPaintParts.SelectionBackground) = DataGridViewPaintParts.SelectionBackground AndAlso (e.State And DataGridViewElementStates.Selected) = DataGridViewElementStates.Selected Then
-    '            e.Graphics.DrawRectangle(New Pen(Color.Black, 2I), e.CellBounds.X + 1I, e.CellBounds.Y + 1I, e.CellBounds.Width - 3I, e.CellBounds.Height - 3I)
-    '        End If
+            If (e.PaintParts And DataGridViewPaintParts.SelectionBackground) = DataGridViewPaintParts.SelectionBackground AndAlso (e.State And DataGridViewElementStates.Selected) = DataGridViewElementStates.Selected Then
+                e.Graphics.DrawRectangle(New Pen(Color.Black, 2I), e.CellBounds.X + 1I, e.CellBounds.Y + 1I, e.CellBounds.Width - 3I, e.CellBounds.Height - 3I)
+            End If
 
-    '        Dim pParts As DataGridViewPaintParts = e.PaintParts And Not DataGridViewPaintParts.Background
-    '        e.Paint(e.ClipBounds, pParts)
-    '        e.Handled = True
-    '    End If
-    'End Sub
+            Dim pParts As DataGridViewPaintParts = e.PaintParts And Not DataGridViewPaintParts.Background
+            e.Paint(e.ClipBounds, pParts)
+            e.Handled = True
+        End If
+    End Sub
 
     Private Sub DataGridView1_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles DataGridView1.EditingControlShowing
         If TypeOf e.Control Is DataGridViewComboBoxEditingControl = True Then
@@ -158,22 +185,16 @@ Public Class 勤務シフト
             Dim cbc As DataGridViewComboBoxCell = CType(dgv(e.ColumnIndex, e.RowIndex), DataGridViewComboBoxCell)
             'コンボボックスの項目に追加する
             If Not cbc.Items.Contains(e.FormattedValue) Then
-                cbc.Items.Add(e.FormattedValue)
-                Dim a As String = cbc.Items(0)
+                If e.FormattedValue = "" OrElse IsDBNull(e.FormattedValue) Then
+
+                Else
+                    dgv(e.ColumnIndex, e.RowIndex).Value = e.FormattedValue
+                    cbc.Items.Add(e.FormattedValue)
+                End If
+
             End If
             'セルの値を設定しないと、元に戻ってしまう
             dgv(e.ColumnIndex, e.RowIndex).Value = e.FormattedValue
-
-
-            'For i As Integer = 0 To cbc.Items.Count - 1
-            '    If cbc.Items(i) = e.FormattedValue Then
-            '        dgv(e.ColumnIndex, e.RowIndex).Value = cbc.Items(i)
-            '        Exit For
-            '    End If
-            'Next
-            Dim g As String = dgv(e.ColumnIndex, e.RowIndex).Value
-            Dim f As String = e.FormattedValue
-            'dgv(e.ColumnIndex, e.RowIndex).Value = f
         End If
     End Sub
 
@@ -190,6 +211,13 @@ Public Class 勤務シフト
             oldDate = Strings.Left(YmdBox1.getADStr(), 7) & "/" & dd
             oldWeekDay = Weekday(oldDate)
             DataGridView1(dd, 1).Value = Week(oldWeekDay)
+            DataGridView1.Columns(dd).ReadOnly = False
+            DataGridView1.Columns(dd).DefaultCellStyle = whiteCellStyle
+        Next
+
+        For i As Integer = Getumatu + 1 To 32
+            DataGridView1.Columns(i).ReadOnly = True
+            DataGridView1.Columns(i).DefaultCellStyle = clearCellStyle
         Next
 
         '以下のコメントアウト部分　別のやり方
@@ -201,6 +229,17 @@ Public Class 勤務シフト
         'For i As Integer = 1 To Getumatu
         '    DataGridView1(i, 1).Value = Week(((oldWeekDay - 1) + (i - 1)) Mod 7)
         'Next
+
+        '公休の数計算
+        Dim koukyuu As String = "0"
+        For i As Integer = 1 To 31
+            If DataGridView1(i, 1).Value = "日" Then
+                koukyuu = Val(koukyuu) + 1
+            ElseIf DataGridView1(i, 1).Value = "土" Then
+                koukyuu = Val(koukyuu) + 0.5
+            End If
+            lblNissuu.Text = Val(koukyuu)
+        Next
 
         'datagridviewにデータを表示
         DataShow()
@@ -217,13 +256,8 @@ Public Class 勤務シフト
         Next
         DataGridView1.CurrentCell = cell
 
-        '公休の数計算
-        Dim koukyuu As String = "0"
-        For i As Integer = 1 To 31
-            If DataGridView1(i, 1).Value = "日" Then
-                koukyuu = Val(koukyuu) + 1
-            End If
-            lblNissuu.Text = Val(koukyuu) + 1
+        For i As Integer = 1 To 35
+            DataGridView1.Columns(i).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
         Next
 
     End Sub
@@ -308,6 +342,9 @@ Public Class 勤務シフト
                 Next
             End If
         Next
+
+        lblNamae.Text = ""
+
     End Sub
 
     Private Sub WeekColor()
@@ -340,12 +377,11 @@ Public Class 勤務シフト
 
         If rs.RecordCount > 0 Then
             Henkou()
-            MsgBox("b")
         Else
             Tuika()
-            MsgBox("a")
         End If
 
+        btnKousin.PerformClick()
     End Sub
     Private Sub Henkou()
         Dim cnn As New ADODB.Connection
@@ -394,16 +430,116 @@ Public Class 勤務シフト
     End Sub
 
     Private Sub btnSakujo_Click(sender As System.Object, e As System.EventArgs) Handles btnSakujo.Click
-        Dim cnn As New ADODB.Connection
-        cnn.Open(frmTopform.DB_Shift)
+        If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
+            Dim cnn As New ADODB.Connection
+            cnn.Open(frmTopform.DB_Shift)
 
-        Dim SQL As String = ""
-        SQL = "DELETE FROM Mnth WHERE Ym = '" & Strings.Left(YmdBox1.getADStr(), 7) & "'"
-        cnn.Execute(SQL)
-        cnn.Close()
+            Dim SQL As String = ""
+            SQL = "DELETE FROM Mnth WHERE Ym = '" & Strings.Left(YmdBox1.getADStr(), 7) & "'"
+            cnn.Execute(SQL)
+            cnn.Close()
+
+            btnKousin.PerformClick()
+        End If
     End Sub
 
     Private Sub btnInnsatu_Click(sender As System.Object, e As System.EventArgs) Handles btnInnsatu.Click
+        Dim cnn As New ADODB.Connection
+        Dim rs As New ADODB.Recordset
+        Dim sql As String = "select * from Mnth WHERE Ym = '" & Strings.Left(YmdBox1.getADStr(), 7) & "' order by Ym, Gyo"
+        cnn.Open(frmTopform.DB_Shift)
+        rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockReadOnly)
 
+        If rs.RecordCount > 0 Then
+            Dim objExcel As Object
+            Dim objWorkBooks As Object
+            Dim objWorkBook As Object
+            Dim oSheets As Object
+            Dim oSheet As Object
+
+            objExcel = CreateObject("Excel.Application")
+            objWorkBooks = objExcel.Workbooks
+            objWorkBook = objWorkBooks.Open(frmTopform.excelFilePass)
+            oSheets = objWorkBook.Worksheets
+            oSheet = objWorkBook.Worksheets("6-31新")
+
+            oSheet.Range("B1").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(YmdBox1.getWarekiStr(), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getWarekiStr(), 5, 2) & " 月 勤務割"
+            oSheet.Range("AJ4").Value = lblNissuu.Text
+            oSheet.Range("AJ6").Value = ""
+            Dim YoubiCell() As String = {"D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH"}
+            For r As Integer = 3 To 12
+                oSheet.Range("C" & r + 3).Value = DataGridView1(0, r).Value
+                For c As Integer = 1 To 31
+                    oSheet.Range(YoubiCell(c - 1) & r + 1).Value = DataGridView1(c, r - 2).Value
+                Next
+            Next
+
+            '保存
+            objExcel.DisplayAlerts = False
+
+            ' エクセル表示
+            objExcel.Visible = True
+
+            '印刷
+            If frmTopform.rbnPreview.Checked = True Then
+                oSheet.PrintPreview(1)
+            ElseIf frmTopform.rbnInnsatu.Checked = True Then
+                oSheet.Printout(1)
+            End If
+
+            ' EXCEL解放
+            objExcel.Quit()
+            Marshal.ReleaseComObject(oSheet)
+            Marshal.ReleaseComObject(objWorkBook)
+            Marshal.ReleaseComObject(objExcel)
+            oSheet = Nothing
+            objWorkBook = Nothing
+            objExcel = Nothing
+        Else
+            MsgBox("出力するデータがありません")
+        End If
+
+
+    End Sub
+
+    Private Sub btnKousin_Click(sender As System.Object, e As System.EventArgs) Handles btnKousin.Click
+        btnKuria.PerformClick()
+
+        Dim Getumatu As String = Date.DaysInMonth(Strings.Left(YmdBox1.getADStr(), 4), Val(Strings.Mid(YmdBox1.getADStr(), 6, 2)))
+        Dim Week() As String = {"", "日", "月", "火", "水", "木", "金", "土"}
+        Dim oldDate As Date
+        Dim oldWeekDay As Integer
+
+        For dd As Integer = 1 To Getumatu
+            DataGridView1(dd, 0).Value = dd
+            oldDate = Strings.Left(YmdBox1.getADStr(), 7) & "/" & dd
+            oldWeekDay = Weekday(oldDate)
+            DataGridView1(dd, 1).Value = Week(oldWeekDay)
+        Next
+
+        Dim koukyuu As String = "0"
+        For i As Integer = 1 To 31
+            If DataGridView1(i, 1).Value = "日" Then
+                koukyuu = Val(koukyuu) + 1
+            ElseIf DataGridView1(i, 1).Value = "土" Then
+                koukyuu = Val(koukyuu) + 0.5
+            End If
+            lblNissuu.Text = Val(koukyuu)
+        Next
+
+        'datagridviewにデータを表示
+        DataShow()
+
+        '個人の休みの数等を計算
+        If Util.checkDBNullValue(DataGridView1(0, 3).Value) <> "" Then
+            Keisan()
+        End If
+
+        Dim cell As DataGridViewCell = DataGridView1.CurrentCell
+        Dim r As Integer = DataGridView1.CurrentRow.Index
+        For c As Integer = 0 To 31
+            DataGridView1.CurrentCell = DataGridView1(c, r)
+        Next
+        DataGridView1.CurrentCell = cell
     End Sub
 End Class

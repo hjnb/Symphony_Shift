@@ -49,6 +49,11 @@ Public Class ShiftDgv
                 Return MyBase.ProcessDialogKey(keyData)
             End If
         Else
+            Dim cell As DataGridViewCell = Me.CurrentCell
+            If keyData = Keys.Back Then
+                cell.Value = ""
+            End If
+
             Return MyBase.ProcessDialogKey(keyData)
         End If
 

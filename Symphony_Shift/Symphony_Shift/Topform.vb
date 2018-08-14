@@ -33,6 +33,15 @@ Public Class frmTopform
             Me.Close()
             Exit Sub
         End If
+
+        Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
+        'ディスプレイの高さと幅を取得
+        Dim h As Integer = s.Bounds.Height
+        Dim w As Integer = s.Bounds.Width
+
+        Me.StartPosition = FormStartPosition.Manual
+        Me.DesktopLocation = New Point(w / 2 - 200, h / 2 - 200)
+
     End Sub
 
     Private Sub btnKinnmu_Click(sender As System.Object, e As System.EventArgs) Handles btnKinnmu.Click
@@ -47,6 +56,7 @@ Public Class frmTopform
         If IsNothing(frmMasuta) OrElse frmMasuta.IsDisposed Then
             frmMasuta = New マスタ()
             frmMasuta.Owner = Me
+            frmMasuta.StartPosition = FormStartPosition.CenterScreen
             frmMasuta.Show()
         End If
     End Sub

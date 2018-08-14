@@ -36,6 +36,7 @@ Partial Class 勤務シフト
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblNamae = New System.Windows.Forms.Label()
         Me.DataGridView1 = New Symphony_Shift.ShiftDgv(Me.components)
+        Me.btnKousin = New System.Windows.Forms.Button()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -170,17 +171,27 @@ Partial Class 勤務シフト
         Me.DataGridView1.Size = New System.Drawing.Size(978, 263)
         Me.DataGridView1.TabIndex = 6
         '
+        'btnKousin
+        '
+        Me.btnKousin.Location = New System.Drawing.Point(691, 58)
+        Me.btnKousin.Name = "btnKousin"
+        Me.btnKousin.Size = New System.Drawing.Size(10, 10)
+        Me.btnKousin.TabIndex = 14
+        Me.btnKousin.Text = "更新"
+        Me.btnKousin.UseVisualStyleBackColor = True
+        '
         '勤務シフト
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1425, 710)
+        Me.Controls.Add(Me.btnTouroku)
+        Me.Controls.Add(Me.btnKousin)
         Me.Controls.Add(Me.lblNamae)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lblNissuu)
-        Me.Controls.Add(Me.btnTouroku)
         Me.Controls.Add(Me.btnKuria)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView1)
@@ -209,4 +220,5 @@ Partial Class 勤務シフト
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents lblNamae As System.Windows.Forms.Label
+    Friend WithEvents btnKousin As System.Windows.Forms.Button
 End Class
