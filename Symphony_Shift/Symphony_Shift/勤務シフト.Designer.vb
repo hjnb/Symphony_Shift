@@ -37,6 +37,13 @@ Partial Class 勤務シフト
         Me.lblNamae = New System.Windows.Forms.Label()
         Me.DataGridView1 = New Symphony_Shift.ShiftDgv(Me.components)
         Me.btnKousin = New System.Windows.Forms.Button()
+        Me.lblKinmu = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -48,7 +55,7 @@ Partial Class 勤務シフト
         Me.YmdBox1.EraLabelText = "H30"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(49, 38)
-        Me.YmdBox1.MonthLabelText = "08"
+        Me.YmdBox1.MonthLabelText = "11"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(120, 46)
@@ -96,9 +103,9 @@ Partial Class 勤務シフト
         Me.Label1.ForeColor = System.Drawing.Color.Blue
         Me.Label1.Location = New System.Drawing.Point(708, 365)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(297, 12)
+        Me.Label1.Size = New System.Drawing.Size(33, 12)
         Me.Label1.TabIndex = 7
-        Me.Label1.Text = "0 : 日　　1 : 早　　2 : 遅　　3 : 休　　4 : 有　　5 : 半　　6 : 研"
+        Me.Label1.Text = "0 : 日"
         '
         'btnKuria
         '
@@ -180,11 +187,90 @@ Partial Class 勤務シフト
         Me.btnKousin.Text = "更新"
         Me.btnKousin.UseVisualStyleBackColor = True
         '
+        'lblKinmu
+        '
+        Me.lblKinmu.AutoSize = True
+        Me.lblKinmu.Font = New System.Drawing.Font("MS UI Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKinmu.ForeColor = System.Drawing.Color.Red
+        Me.lblKinmu.Location = New System.Drawing.Point(220, 51)
+        Me.lblKinmu.Name = "lblKinmu"
+        Me.lblKinmu.Size = New System.Drawing.Size(28, 19)
+        Me.lblKinmu.TabIndex = 15
+        Me.lblKinmu.Text = "勤"
+        Me.lblKinmu.Visible = False
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.ForeColor = System.Drawing.Color.Blue
+        Me.Label6.Location = New System.Drawing.Point(752, 365)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(33, 12)
+        Me.Label6.TabIndex = 16
+        Me.Label6.Text = "1 : 早"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.ForeColor = System.Drawing.Color.Blue
+        Me.Label7.Location = New System.Drawing.Point(796, 365)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(33, 12)
+        Me.Label7.TabIndex = 17
+        Me.Label7.Text = "2 : 遅"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.ForeColor = System.Drawing.Color.Blue
+        Me.Label8.Location = New System.Drawing.Point(840, 365)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(33, 12)
+        Me.Label8.TabIndex = 18
+        Me.Label8.Text = "3 : 休"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.ForeColor = System.Drawing.Color.Blue
+        Me.Label9.Location = New System.Drawing.Point(884, 365)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(33, 12)
+        Me.Label9.TabIndex = 19
+        Me.Label9.Text = "4 : 有"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.ForeColor = System.Drawing.Color.Blue
+        Me.Label10.Location = New System.Drawing.Point(928, 365)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(33, 12)
+        Me.Label10.TabIndex = 20
+        Me.Label10.Text = "5 : 半"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.ForeColor = System.Drawing.Color.Blue
+        Me.Label11.Location = New System.Drawing.Point(972, 365)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(33, 12)
+        Me.Label11.TabIndex = 21
+        Me.Label11.Text = "6 : 研"
+        '
         '勤務シフト
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1425, 710)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.lblKinmu)
         Me.Controls.Add(Me.btnTouroku)
         Me.Controls.Add(Me.btnKousin)
         Me.Controls.Add(Me.lblNamae)
@@ -221,4 +307,11 @@ Partial Class 勤務シフト
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents lblNamae As System.Windows.Forms.Label
     Friend WithEvents btnKousin As System.Windows.Forms.Button
+    Friend WithEvents lblKinmu As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
 End Class
