@@ -123,6 +123,14 @@ Public Class 勤務シフト
         Dim cell As DataGridViewCell = DataGridView1.CurrentCell
         If cell.ColumnIndex = 0 AndAlso cell.RowIndex > 2 Then
             lblNamae.Text = Strings.Left(Util.checkDBNullValue(cell.Value), 1)
+        ElseIf cell.ColumnIndex > 0 AndAlso cell.RowIndex > 2 Then
+            If lblKinmu.Visible = True Then
+                If lblKinmu.Text = "日" Then
+                    cell.Value = "7.5"
+                Else
+                    cell.Value = lblKinmu.Text
+                End If
+            End If
         Else
             If cell.ColumnIndex <> 0 AndAlso cell.RowIndex = 2 AndAlso lblNamae.Text <> "" Then
                 cell.Value = lblNamae.Text
@@ -542,4 +550,34 @@ Public Class 勤務シフト
         Next
         DataGridView1.CurrentCell = cell
     End Sub
+
+    Private Sub Label1_Click(sender As System.Object, e As System.EventArgs) Handles Label1.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "日"
+    End Sub
+    Private Sub Label6_Click(sender As System.Object, e As System.EventArgs) Handles Label6.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "早"
+    End Sub
+    Private Sub Label7_Click(sender As System.Object, e As System.EventArgs) Handles Label7.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "遅"
+    End Sub
+    Private Sub Label8_Click(sender As System.Object, e As System.EventArgs) Handles Label8.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "休"
+    End Sub
+    Private Sub Label9_Click(sender As System.Object, e As System.EventArgs) Handles Label9.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "有"
+    End Sub
+    Private Sub Label10_Click(sender As System.Object, e As System.EventArgs) Handles Label10.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "半"
+    End Sub
+    Private Sub Label11_Click(sender As System.Object, e As System.EventArgs) Handles Label11.Click
+        lblKinmu.Visible = True
+        lblKinmu.Text = "研"
+    End Sub
+
 End Class
