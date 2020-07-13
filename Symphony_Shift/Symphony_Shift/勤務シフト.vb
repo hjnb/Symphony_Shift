@@ -267,7 +267,6 @@ Public Class 勤務シフト
         For i As Integer = 1 To 35
             DataGridView1.Columns(i).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
         Next
-
     End Sub
 
     Private Sub DataShow()
@@ -471,7 +470,7 @@ Public Class 勤務シフト
             oSheets = objWorkBook.Worksheets
             oSheet = objWorkBook.Worksheets("6-31新")
 
-            oSheet.Range("B1").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(YmdBox1.getWarekiStr(), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getWarekiStr(), 5, 2) & " 月 勤務割"
+            oSheet.Range("B1").Value = Strings.Left(YmdBox1.getADStr(), 4) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 勤務割"
             oSheet.Range("AJ4").Value = lblNissuu.Text
             oSheet.Range("AJ6").Value = ""
             Dim YoubiCell() As String = {"D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH"}
@@ -580,4 +579,5 @@ Public Class 勤務シフト
         lblKinmu.Text = "研"
     End Sub
 
+    
 End Class

@@ -23,7 +23,6 @@ Partial Class 勤務シフト
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.YmdBox1 = New ymdBox.ymdBox()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.btnTouroku = New System.Windows.Forms.Button()
         Me.btnSakujo = New System.Windows.Forms.Button()
@@ -35,7 +34,6 @@ Partial Class 勤務シフト
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblNamae = New System.Windows.Forms.Label()
-        Me.DataGridView1 = New Symphony_Shift.ShiftDgv(Me.components)
         Me.btnKousin = New System.Windows.Forms.Button()
         Me.lblKinmu = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -44,22 +42,11 @@ Partial Class 勤務シフト
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.YmdBox1 = New ADBox2.ADBox2()
+        Me.DataGridView1 = New Symphony_Shift.ShiftDgv(Me.components)
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'YmdBox1
-        '
-        Me.YmdBox1.boxType = 7
-        Me.YmdBox1.DateText = ""
-        Me.YmdBox1.EraLabelText = "H30"
-        Me.YmdBox1.EraText = ""
-        Me.YmdBox1.Location = New System.Drawing.Point(49, 38)
-        Me.YmdBox1.MonthLabelText = "11"
-        Me.YmdBox1.MonthText = ""
-        Me.YmdBox1.Name = "YmdBox1"
-        Me.YmdBox1.Size = New System.Drawing.Size(120, 46)
-        Me.YmdBox1.TabIndex = 0
         '
         'DataGridView2
         '
@@ -72,7 +59,7 @@ Partial Class 勤務シフト
         '
         'btnTouroku
         '
-        Me.btnTouroku.Location = New System.Drawing.Point(675, 44)
+        Me.btnTouroku.Location = New System.Drawing.Point(676, 45)
         Me.btnTouroku.Name = "btnTouroku"
         Me.btnTouroku.Size = New System.Drawing.Size(64, 30)
         Me.btnTouroku.TabIndex = 3
@@ -169,18 +156,9 @@ Partial Class 勤務シフト
         Me.lblNamae.TabIndex = 13
         Me.lblNamae.Text = "名"
         '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(37, 90)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.RowTemplate.Height = 21
-        Me.DataGridView1.Size = New System.Drawing.Size(978, 263)
-        Me.DataGridView1.TabIndex = 6
-        '
         'btnKousin
         '
-        Me.btnKousin.Location = New System.Drawing.Point(691, 58)
+        Me.btnKousin.Location = New System.Drawing.Point(710, 51)
         Me.btnKousin.Name = "btnKousin"
         Me.btnKousin.Size = New System.Drawing.Size(10, 10)
         Me.btnKousin.TabIndex = 14
@@ -259,11 +237,32 @@ Partial Class 勤務シフト
         Me.Label11.TabIndex = 21
         Me.Label11.Text = "6 : 研"
         '
+        'YmdBox1
+        '
+        Me.YmdBox1.dateText = ""
+        Me.YmdBox1.Location = New System.Drawing.Point(41, 36)
+        Me.YmdBox1.Mode = 32
+        Me.YmdBox1.monthText = ""
+        Me.YmdBox1.Name = "YmdBox1"
+        Me.YmdBox1.Size = New System.Drawing.Size(110, 46)
+        Me.YmdBox1.TabIndex = 22
+        Me.YmdBox1.yearText = ""
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(37, 90)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.RowTemplate.Height = 21
+        Me.DataGridView1.Size = New System.Drawing.Size(978, 263)
+        Me.DataGridView1.TabIndex = 6
+        '
         '勤務シフト
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1425, 710)
+        Me.Controls.Add(Me.YmdBox1)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
@@ -284,7 +283,6 @@ Partial Class 勤務シフト
         Me.Controls.Add(Me.btnInnsatu)
         Me.Controls.Add(Me.btnSakujo)
         Me.Controls.Add(Me.DataGridView2)
-        Me.Controls.Add(Me.YmdBox1)
         Me.Name = "勤務シフト"
         Me.Text = "勤務シフト"
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -293,7 +291,6 @@ Partial Class 勤務シフト
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents YmdBox1 As ymdBox.ymdBox
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents btnTouroku As System.Windows.Forms.Button
     Friend WithEvents btnSakujo As System.Windows.Forms.Button
@@ -314,4 +311,5 @@ Partial Class 勤務シフト
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents YmdBox1 As ADBox2.ADBox2
 End Class
